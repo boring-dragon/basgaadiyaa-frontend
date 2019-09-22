@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Bas Gaadiyaa - v1.0 </title>
+  <meta name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css'>
+<link rel="stylesheet" href="./style.css">
+
+<script type="text/javascript" src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-spinners-css"></script>
+	<script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+
+<!-- partial:index.partial.html -->
+<div class="blog-slider" id="app">
+	
+  <div class="blog-slider__wrp swiper-wrapper">
+    <div class="blog-slider__item swiper-slide">
+      <div class="blog-slider__img">
+        
+        <img :src="image" alt="">
+      </div>
+      <div class="blog-slider__content">
+		  
+        <!-- <span class="blog-slider__code">#22 September 2019</span> -->
+		<div class="blog-slider__title"><h3 style="color: #17292E;text-align: center;">ބަސް ގާޑިޔާ</h3></div>
+		<p class="quotation-mark">“</p> 
+        <div class="blog-slider__text">
+			
+			<p class="dhivehi">{{ status }}</p></div>
+			<div v-if="loading"><dual-ring-loader color="gray" /></div>
+        <a href="#" class="blog-slider__button" @click="loadQuote">New Quote</a>
+		<h5 style="color: gray; ">Made with ❤️ in Maldives.</h5>
+	  </div>
+	  
+      
+	</div>
+	
+	
+    </div>
+    
+    
+
+</div>
+
+
+<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				status: '',
+				image: '',
+				loading: false
+			},
+			created: function () {
+				this.loadQuote();
+				this.loadImage();
+
+			},
+			methods: {
+				loadQuote: function () {
+					this.status = '';
+					this.loading = true;
+					//Waste 5 seconds
+					setTimeout(() => {
+					this.loading = false;
+					}, 1000)
+					var vm = this;
+					axios.get('http://quote.jinas.me/quote/random')
+					.then(function (response) {
+					vm.status = response.data[0];
+
+					})
+					.catch(function (error) {
+						vm.status = 'An error Occurred.' + error;
+					});
+
+				},
+
+				loadImage: function() {
+				var vm = this;
+					axios.get('http://quote.jinas.me/image/random')
+					.then(function (response) {
+					vm.image = response.data[0];
+
+					})
+					.catch(function (error) {
+						vm.image = 'An error Occurred.' + error;
+					});
+
+				
+			}
+
+			}
+
+
+			
+
+		});
+	</script>
+
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js'></script>
+<script  src="./script.js"></script>
+
+</body>
+</html>
