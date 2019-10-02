@@ -33,7 +33,7 @@
 			
 			<p class="dhivehi">{{ status }}</p></div>
 			<div v-if="loading"><dual-ring-loader color="gray" /></div>
-        <a href="#" class="blog-slider__button" @click="loadQuote">New Quote</a>
+        <a href="#" class="blog-slider__button" @click.prevent="loadQuote">New Quote</a>
 		<h5 style="color: gray; ">Made with ❤️ in Maldives.</h5>
 	  </div>
 	  
